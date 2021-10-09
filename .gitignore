@@ -1,2 +1,4 @@
 *.sqlite
-# register this change.
+bin/
+obj/
+.vs/*
