@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace ATM
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace ATM
             }
         }
 
-        static List<string> DeserialiseJson(String path)
+        public static List<string> DeserialiseJson(String path)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace ATM
                 throw new Exception($"Failed to deserialise JSON, error:{e}");
             }
         }
-        static void UserInteraction(Atm atm)
+        public static void UserInteraction(Atm atm)
         {
             var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
             var account = new Account { Number = int.Parse(rowInformationSplit[0]), Pin = int.Parse(rowInformationSplit[1]) };
@@ -60,7 +60,7 @@ namespace ATM
             SetAccountBalanceAndOverdraft(atm, account);
             HandleAccountOperations(atm, account);
         }
-        static bool PinValid(Account account, string inputPin)
+        public static bool PinValid(Account account, string inputPin)
         {
             if (account.Pin != int.Parse(inputPin))
             {
@@ -68,7 +68,7 @@ namespace ATM
             }
             return true;
         }
-        static void HandleAccountOperations(Atm atm, Account account)
+        public static void HandleAccountOperations(Atm atm, Account account)
         {
             while (atm.RowNumber < atm.InputData.Count)
             {
@@ -96,12 +96,12 @@ namespace ATM
                 }
             }
         }
-        static void SetAccountBalanceAndOverdraft(Atm atm, Account account) {
+        public static void SetAccountBalanceAndOverdraft(Atm atm, Account account) {
             var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
             account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
             atm.RowNumber++;
         }
-        static bool ValidTransaction(Account account, Atm atm, int withdrawalAmount)
+        public static bool ValidTransaction(Account account, Atm atm, int withdrawalAmount)
         {
             var accoutBalWithOverdraft = (int)account.Balance + (int)account.Overdraft;
             if (accoutBalWithOverdraft < withdrawalAmount)
@@ -116,7 +116,7 @@ namespace ATM
             }
             return true;
         }
-        static string[] SplitRowInformation(string inputInformationRow)
+        public static string[] SplitRowInformation(string inputInformationRow)
         {
             return inputInformationRow.Split(" ");
         }
