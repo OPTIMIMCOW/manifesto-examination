@@ -26,7 +26,7 @@
         }
         .circle-container{
             width:100%;
-            height:80%;
+            height:75%;
         }
 
         .circle {
@@ -46,6 +46,32 @@
             background: linear-gradient( hsl(258, 100%, 28%, 0.9), hsl(258, 100%, 28%,0.5));
         }
 
+        .text-container{
+            height:25%;
+            display:flex;
+            justify-content:space-between;
+        }
+
+        .lhs-text-container{
+            width:auto;
+            height:100%;
+            background: green;
+        }
+
+        .list{
+            list-style-type:none;
+        }
+
+        .rhs-text-container {
+            height: 100%;
+            background: green;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+        }
+
+        .rhs-text-container{
+        }
 
 
     </style>
@@ -58,6 +84,19 @@
             <div class="circle upper"></div>
         </div>
         <div class="text-container">
+            <div class="lhs-text-container">
+                <ul class="list">
+                    <li class="list-item">2. Internationale Triennale<br> f&#252r farbige Original-Graphic</li>
+                    <li class="list-item">2. Triennale internationale<br> pour gravures originales en couleurs</li>
+                    <li class="list-item">2. Triennale internazionake<br> per la grafica originale in colori</li>
+                    <li class="list-item">2<sup>nd</sup> International Triennial<br> of Original Coloured Graphic</li>
+                </ul>
+                <p class="list individual-list-item">17. VI. - 2. VII. 1961   10.00-18.00<br> Parktheater Grenchen (Schweiz)</p>
+            </div>
+            <div class="rhs-text-container">
+                <h1 class="title-text">farbige Graphik</h1>
+                <h1 class="title-text">in Grenchen</h1>
+            </div>
 
         </div>
     </div>
