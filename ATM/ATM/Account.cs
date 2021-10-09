@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM
 {
-    class Account
+    public class Account
     {
         public int Number { get; set; }
         public int Pin { get; set; }
