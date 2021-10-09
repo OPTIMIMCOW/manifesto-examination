@@ -4,11 +4,101 @@
     <title>Farbige Graphik in Grenchen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        html {
+            display: unset;
+        }
+
+        body{
+            margin:unset;
+        }
+
+        .background-border {
+            width: 70vh;
+            height: 100vh;
+            background: white;
+            border: 25px solid black;
+            box-sizing: border-box;
+            margin: 0 auto;
+            z-index: -10;
+            position: relative
+        }
+        .circle-container{
+            width:100%;
+            height:75%;
+        }
+
+        .circle {
+            width: 100%;
+            padding-top: 100%;
+            border-radius:50%;
+        }
+
+        .upper {
+            background: linear-gradient(hsl(0, 100%, 55%,1.0), hsl(0, 100%, 55%,1.0));
+            position: relative;
+            margin-top: -90%;
+            z-index: -1;
+        }
+
+        .lower {
+            background: linear-gradient( hsl(258, 100%, 28%, 0.9), hsl(258, 100%, 28%,0.5));
+        }
+
+        .text-container{
+            height:25%;
+            display:flex;
+            justify-content:space-between;
+        }
+
+        .lhs-text-container{
+            width:auto;
+            height:100%;
+            background: green;
+        }
+
+        .list{
+            list-style-type:none;
+        }
+
+        .rhs-text-container {
+            height: 100%;
+            background: green;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+        }
+
+        .rhs-text-container{
+        }
+
+
+    </style>
 
 </head>
 <body>
+    <div class="background-border">
+        <div class="circle-container">
+            <div class="circle lower"></div>
+            <div class="circle upper"></div>
+        </div>
+        <div class="text-container">
+            <div class="lhs-text-container">
+                <ul class="list">
+                    <li class="list-item">2. Internationale Triennale<br> f&#252r farbige Original-Graphic</li>
+                    <li class="list-item">2. Triennale internationale<br> pour gravures originales en couleurs</li>
+                    <li class="list-item">2. Triennale internazionake<br> per la grafica originale in colori</li>
+                    <li class="list-item">2<sup>nd</sup> International Triennial<br> of Original Coloured Graphic</li>
+                </ul>
+                <p class="list individual-list-item">17. VI. - 2. VII. 1961   10.00-18.00<br> Parktheater Grenchen (Schweiz)</p>
+            </div>
+            <div class="rhs-text-container">
+                <h1 class="title-text">farbige Graphik</h1>
+                <h1 class="title-text">in Grenchen</h1>
+            </div>
 
-    
-
+        </div>
+    </div>
 </body>
 </html>
