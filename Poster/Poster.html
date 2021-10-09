@@ -21,7 +21,31 @@
             border: 25px solid black;
             box-sizing: border-box;
             margin: 0 auto;
+            z-index: -10;
+            position: relative
         }
+        .circle-container{
+            width:100%;
+            height:80%;
+        }
+
+        .circle {
+            width: 100%;
+            padding-top: 100%;
+            border-radius:50%;
+        }
+
+        .upper {
+            background: linear-gradient(hsl(0, 100%, 55%,1.0), hsl(0, 100%, 55%,1.0));
+            position: relative;
+            margin-top: -90%;
+            z-index: -1;
+        }
+
+        .lower {
+            background: linear-gradient( hsl(258, 100%, 28%, 0.9), hsl(258, 100%, 28%,0.5));
+        }
+
 
 
     </style>
@@ -29,7 +53,13 @@
 </head>
 <body>
     <div class="background-border">
+        <div class="circle-container">
+            <div class="circle lower"></div>
+            <div class="circle upper"></div>
+        </div>
+        <div class="text-container">
 
+        </div>
     </div>
 </body>
 </html>
