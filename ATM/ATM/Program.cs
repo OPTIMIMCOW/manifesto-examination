@@ -1,4 +1,7 @@
 ﻿using System;
+using Newtonsoft.Json;
+using System.IO;
+using System.Collections.Generic;
 
 namespace ATM
 {
@@ -20,6 +23,14 @@ namespace ATM
             // 6) method to update the ballance
             // when blank line hit, return final balance.  repeat above steps
             // when row == arr.length end script.
+            var JsonFileLocation = @"..\..\..\TestFile.json";
+            DeserialiseJson(JsonFileLocation);
+
+        }
+        public static List<string> DeserialiseJson(String path)
+        {
+            var inputJson = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<List<string>>(inputJson);
         }
     }
 }
