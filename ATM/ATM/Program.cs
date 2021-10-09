@@ -14,16 +14,19 @@ namespace ATM
             {
                 var jsonFileLocation = @"..\..\..\TestFile.json";
                 var inputInformation = DeserialiseJson(jsonFileLocation);
-                var rowNumber = 0;
-                var atmFunds = 0;
 
-                InitialiseAtm(ref rowNumber, inputInformation, ref atmFunds);
-
-                // start Interaction as a function
-                while (rowNumber != inputInformation.Count)
+                Atm atm = new Atm { RowNumber = 0, InputData = inputInformation, Funds = int.Parse(inputInformation[0]) };
+                atm.RowNumber++;
+                if (atm.InputData[atm.RowNumber] != "")
                 {
-                    UserInteraction(ref rowNumber, inputInformation, atmFunds);
-                    rowNumber++;
+                    throw new Exception($"Input Data Failure. Row{atm.RowNumber} was expexted to be empty but was {inputInformation[atm.RowNumber]}");
+                }
+                atm.RowNumber++;
+
+                while (atm.RowNumber != atm.InputData.Count)
+                {
+                    UserInteraction(atm);
+                    atm.RowNumber++;
                 }
             }
             catch (Exception e)
@@ -31,16 +34,7 @@ namespace ATM
                 // TODO add something for the logger or similar. 
             }
         }
-        static void InitialiseAtm(ref int rowNumber, List<string> inputInformation, ref int atmFunds)
-        {
-            atmFunds = int.Parse(inputInformation[rowNumber]);
-            rowNumber++;
-            if (inputInformation[rowNumber] != "")
-            {
-                throw new Exception($"Input Data Failure. Row{rowNumber} was expexted to be empty but was {inputInformation[rowNumber]}");
-            }
-            rowNumber++;
-        }
+
         static List<string> DeserialiseJson(String path)
         {
             try
@@ -53,17 +47,18 @@ namespace ATM
                 throw new Exception($"Failed to deserialise JSON, error:{e}");
             }
         }
-        static void UserInteraction(ref int rowNumber, List<string> inputInformation, int atmFunds)
+        static void UserInteraction(Atm atm)
         {
-            var rowInformationSplit = SplitRowInformation(inputInformation[rowNumber]);
+            var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
             var account = new Account { Number = int.Parse(rowInformationSplit[0]), Pin = int.Parse(rowInformationSplit[1]) };
             if (PinValid(account, rowInformationSplit[2]) == false)
             {
                 Console.WriteLine("ACCOUNT_ERR");
                 return;
             }
-            rowNumber++;
-            HandleAccountOperations(ref rowNumber, inputInformation, ref atmFunds);
+            atm.RowNumber++;
+            SetAccountBalanceAndOverdraft(atm, account);
+            HandleAccountOperations(atm, account);
         }
         static bool PinValid(Account account, string inputPin)
         {
@@ -73,46 +68,48 @@ namespace ATM
             }
             return true;
         }
-        static void HandleAccountOperations(ref int rowNumber, List<string> inputInformation, ref int atmFunds)
+        static void HandleAccountOperations(Atm atm, Account account)
         {
-            var rowInformationSplit = SplitRowInformation(inputInformation[rowNumber]);
-            var accoutBal = int.Parse(rowInformationSplit[0]);
-            var accountBalWithOverdraft = accoutBal + int.Parse(rowInformationSplit[1]);
-            rowNumber++;
-            while (rowNumber < inputInformation.Count)
+            while (atm.RowNumber < atm.InputData.Count)
             {
-                rowInformationSplit = SplitRowInformation(inputInformation[rowNumber]);
+                var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
                 switch (rowInformationSplit[0])
                 {
                     case "":
                         return;
                     case "B":
-                        Console.WriteLine(accoutBal);
-                        rowNumber++;
+                        Console.WriteLine(account.Balance);
+                        atm.RowNumber++;
                         break;
                     case "W":
                         var withdrawalAmount = int.Parse(rowInformationSplit[1]);
-                        if (ValidTransaction(accountBalWithOverdraft, atmFunds, withdrawalAmount))
+                        if (ValidTransaction(account, atm, withdrawalAmount))
                         {
-                            accoutBal = accoutBal - withdrawalAmount;
-                            atmFunds = atmFunds - withdrawalAmount;
-                            Console.WriteLine(accoutBal);
-                            rowNumber++;
+                            account.Balance = account.Balance - withdrawalAmount;
+                            atm.Funds = atm.Funds - withdrawalAmount;
+                            Console.WriteLine(account.Balance);
+                            atm.RowNumber++;
                             break;
                         }
-                        rowNumber++;
+                        atm.RowNumber++;
                         break;
                 }
             }
         }
-        static bool ValidTransaction(int accountBalWithOverdraft, int atmFunds, int withdrawalAmount)
+        static void SetAccountBalanceAndOverdraft(Atm atm, Account account) {
+            var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
+            account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
+            atm.RowNumber++;
+        }
+        static bool ValidTransaction(Account account, Atm atm, int withdrawalAmount)
         {
-            if (accountBalWithOverdraft < withdrawalAmount)
+            var accoutBalWithOverdraft = (int)account.Balance + (int)account.Overdraft;
+            if (accoutBalWithOverdraft < withdrawalAmount)
             {
                 Console.WriteLine("FUNDS_ERR");
                 return false;
             }
-            else if (atmFunds < withdrawalAmount)
+            else if (atm.Funds < withdrawalAmount)
             {
                 Console.WriteLine("ATM_ERR");
                 return false;
@@ -123,6 +120,5 @@ namespace ATM
         {
             return inputInformationRow.Split(" ");
         }
-
     }
 }

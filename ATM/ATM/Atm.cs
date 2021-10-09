@@ -10,6 +10,6 @@ namespace ATM
     {
         public int Funds { get; set; }
         public List<string> InputData { get; set; }
-        public int rowNumber = 0;
+        public int RowNumber = 0;
     }
 }
