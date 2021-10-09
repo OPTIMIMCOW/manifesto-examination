@@ -1,0 +1,88 @@
+html {
+    display: unset;
+}
+
+body {
+    margin: unset;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(84,84,84);
+}
+
+.background-border {
+    width: 70vh;
+    height: 100vh;
+    border: 25px solid black;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.circle-container {
+    height: 75%;
+}
+
+.circle {
+    padding-top: 100%;
+    border-radius: 50%;
+}
+
+.upper {
+    background: linear-gradient(hsl(0, 100%, 55%,1.0), hsl(0, 100%, 55%,1.0));
+    position: relative;
+    margin-top: -90%;
+    z-index: -1;
+}
+
+.lower {
+    background: linear-gradient( hsl(258, 100%, 28%, 0.9), hsl(258, 100%, 28%,0.5));
+}
+
+.text-container {
+    height: 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lhs-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list {
+    list-style-type: none;
+    padding: unset;
+    margin: unset;
+}
+
+.list-item {
+    padding: 0 0 15px 20px;
+    font-size: 10px;
+}
+
+.rhs-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rhs-text-container {
+    margin-right: 10px;
+}
+
+.title-text {
+    font-size: 42px;
+    margin: unset;
+    margin-bottom: 10px;
+}
+
+.vertical-text {
+    font-size: 4px;
+    width: fit-content;
+    transform: rotate(-90deg);
+    position: relative;
+    display: block;
+    float: right;
+    bottom: 65px;
+    right: -30px;
+}
