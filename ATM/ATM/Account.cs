@@ -10,10 +10,10 @@ namespace ATM
     {
         public int Number { get; set; }
         public int Pin { get; set; }
-        public int? Balance { get; set; } = null;
-        public int? Overdraft { get; set; } = null;
+        public decimal? Balance { get; set; } = null;
+        public decimal? Overdraft { get; set; } = null;
 
-        public void SetBalanceAndOverDraft(int balance, int overdraft)
+        public void SetBalanceAndOverDraft(decimal balance, decimal overdraft)
         {
             Balance = balance;
             Overdraft = overdraft;

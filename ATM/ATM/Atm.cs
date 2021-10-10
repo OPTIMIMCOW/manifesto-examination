@@ -8,8 +8,8 @@ namespace ATM
 {
     public class Atm
     {
-        public int Funds { get; set; }
+        public decimal Funds { get; set; }
         public List<string> InputData { get; set; }
-        public int RowNumber = 0;
+        public Int32 RowNumber = 0;
     }
 }

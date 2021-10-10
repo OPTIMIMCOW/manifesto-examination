@@ -9,11 +9,10 @@ namespace ATM
     {
         public static void Main(string[] args)
         {
-            var jsonFileLocation = @"..\..\..\TestFile_ComplexTestCase.json";
+            var jsonFileLocation = @"..\..\..\TestFile.json";
             var inputInformation = DeserialiseJson(jsonFileLocation);
             if (inputInformation == null)
             {
-
                 return;
             }
 
@@ -112,7 +111,7 @@ namespace ATM
         }
         public static bool ValidTransaction(Account account, Atm atm, int withdrawalAmount)
         {
-            var accoutBalWithOverdraft = (int)account.Balance + (int)account.Overdraft;
+            var accoutBalWithOverdraft = (Int64)account.Balance + (int)account.Overdraft;
             if (accoutBalWithOverdraft < withdrawalAmount)
             {
                 Console.WriteLine("FUNDS_ERR");

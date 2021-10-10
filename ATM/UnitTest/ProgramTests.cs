@@ -6,13 +6,12 @@ using System.Collections.Generic;
 
 namespace UnitTest
 {
-    public class UnitTest1
+    public class ProgramTests
     {
         [Fact]
-        public async void TestDeserialiseJson_WithExampleDataset_ReturnValidListOfStrings()
+        public void TestDeserialiseJson_WithExampleDataset_ReturnValidListOfStrings()
         {
             //Arrange
-
 
             //Act
             var result = Program.DeserialiseJson(@"..\..\..\..\ATM\TestFile.json");
