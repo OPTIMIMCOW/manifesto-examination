@@ -6,6 +6,9 @@ namespace ATM
     interface IAtm
     {
         void ProcessInputData();
+        void UserInteraction();
+        void HandleAccountOperations(Account account);
+        void SetAccountBalanceAndOverdraft(Account account);
     }
     public class Atm : IAtm
     {
@@ -19,7 +22,7 @@ namespace ATM
                 UserInteraction();
             }
         }
-        void UserInteraction()
+        public void UserInteraction()
         {
             var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
             var account = new Account { Number = int.Parse(rowInformationSplit[0]), Pin = int.Parse(rowInformationSplit[1]) };
@@ -62,7 +65,7 @@ namespace ATM
                 }
             }
         }
-        void SetAccountBalanceAndOverdraft(Account account)
+        public void SetAccountBalanceAndOverdraft(Account account)
         {
             var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
             account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
