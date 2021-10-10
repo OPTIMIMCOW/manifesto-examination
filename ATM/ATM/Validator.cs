@@ -72,21 +72,33 @@ namespace ATM
                     }
                     return true;
                 case Utilities.LineType.Blank:
-                    if (actualLine.Length != 0)
+                    if (actualLine.Length != 1)
+                    {
+                        return false;
+                    }
+                    if (actualLine[0] != "" && actualLine[0] != "")
                     {
                         return false;
                     }
                     return true;
                 case Utilities.LineType.UserOperation:
-                    if (actualLine.Length != 2)
+                    if (actualLine.Length == 2)
                     {
-                        return false;
+                        if (ValidDataType(Utilities.DataType.Operation, actualLine[0]) == false || ValidDataType(Utilities.DataType.WithdrawalAmount, actualLine[1]) == false)
+                        {
+                            return false;
+                        }
+                        return true;
                     }
-                    if (ValidDataType(Utilities.DataType.Operation, actualLine[0]) == false || ValidDataType(Utilities.DataType.FinancialAmount, actualLine[1]) == false)
+                    if (actualLine.Length == 1)
                     {
-                        return false;
+                        if (ValidDataType(Utilities.DataType.Operation, actualLine[0]) == false)
+                        {
+                            return false;
+                        }
+                        return true;
                     }
-                    return true;
+                    return false;
             }
             return false;
         }
@@ -97,20 +109,29 @@ namespace ATM
                 switch (expectedData)
                 {
                     case Utilities.DataType.AccountNumber:
-                        int.Parse(actualData);
+                        if (int.Parse(actualData) <= 0)
+                        {
+                            return false;
+                        }
                         return true;
                     case Utilities.DataType.FinancialAmount:
                         decimal.Parse(actualData, NumberStyles.AllowDecimalPoint | NumberStyles.Number);
                         return true;
                     case Utilities.DataType.Pin:
-                        if(actualData.Length != 4)
+                        if (actualData.Length != 4)
                         {
                             return false;
                         }
                         int.Parse(actualData);
                         return true;
                     case Utilities.DataType.Operation:
-                        if(actualData != "W" && actualData != "B")
+                        if (actualData != "W" && actualData != "B")
+                        {
+                            return false;
+                        }
+                        return true;
+                    case Utilities.DataType.WithdrawalAmount:
+                        if (decimal.Parse(actualData) <= 0)
                         {
                             return false;
                         }

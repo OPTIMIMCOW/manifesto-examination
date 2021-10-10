@@ -26,6 +26,7 @@ namespace ATM
             FinancialAmount,
             Operation,
             Pin,
+            WithdrawalAmount
         }
     }
 }
