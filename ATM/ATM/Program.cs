@@ -9,10 +9,11 @@ namespace ATM
     {
         public static void Main(string[] args)
         {
-            var jsonFileLocation = @"..\..\..\TestFile.json";
+            var jsonFileLocation = @"..\..\..\TestFile_ComplexTestCase.json";
             var inputInformation = DeserialiseJson(jsonFileLocation);
             if (inputInformation == null)
             {
+
                 return;
             }
 
@@ -50,6 +51,7 @@ namespace ATM
             if (PinValid(account, rowInformationSplit[2]) == false)
             {
                 Console.WriteLine("ACCOUNT_ERR");
+                atm.RowNumber++;
                 return;
             }
             atm.RowNumber++;
