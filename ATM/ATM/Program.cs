@@ -18,11 +18,19 @@ namespace ATM
 
             Atm atm = null;
             InitialiseAtm(ref atm, inputInformation);
-            if(atm== null)
+            if (atm == null)
             {
                 return;
             }
-            atm.ProcessInputData();
+
+            try
+            {
+                atm.ProcessInputData();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Exception: {e}");
+            }
         }
         public static List<string> DeserialiseJson(String path)
         {
@@ -38,16 +46,11 @@ namespace ATM
             }
         }
         public static void InitialiseAtm(ref Atm atm, List<string> inputInformation)
-        {
-            atm = new Atm { RowNumber = 0, InputData = inputInformation, Funds = int.Parse(inputInformation[0]) };
+        {// validate line before use here
+            // return if line not valid
+            atm = new Atm(inputInformation);
             atm.RowNumber++;
             atm.RowNumber++;
         }
-        
-        
-        
-        
-
-
     }
 }

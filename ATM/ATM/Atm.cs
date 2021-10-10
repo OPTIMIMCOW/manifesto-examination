@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ATM
 {
@@ -14,7 +15,13 @@ namespace ATM
     {
         public decimal Funds { get; set; }
         public List<string> InputData { get; set; }
-        public int RowNumber = 0;
+        public int RowNumber;
+        public Atm(List<string> inputData)
+        {
+            RowNumber = 0;
+            Funds = decimal.Parse(inputData[0], NumberStyles.AllowDecimalPoint | NumberStyles.Number);
+            InputData = inputData;
+        }
         public void ProcessInputData()
         {
             while (this.RowNumber != this.InputData.Count)
@@ -25,6 +32,7 @@ namespace ATM
         public void UserInteraction()
         {
             var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
+            // validate line // if invalid then throw error
             var account = new Account { Number = int.Parse(rowInformationSplit[0]), Pin = int.Parse(rowInformationSplit[1]) };
             if (Validator.PinValid(account, rowInformationSplit[2]) == false)
             {
@@ -51,7 +59,7 @@ namespace ATM
                         this.RowNumber++;
                         break;
                     case "W":
-                        var withdrawalAmount = decimal.Parse(rowInformationSplit[1]);
+                        var withdrawalAmount = decimal.Parse(rowInformationSplit[1], NumberStyles.AllowDecimalPoint | NumberStyles.Number);
                         if (Validator.ValidTransaction(account, this, withdrawalAmount))
                         {
                             account.Balance = account.Balance - withdrawalAmount;

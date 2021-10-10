@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ATM
 {
@@ -40,9 +37,91 @@ namespace ATM
             }
             return true;
         }
-        //public static bool ValidLine()
-        //{
-
-        //}
+        public static bool ValidLine(Utilities.LineType expectedType, string[] actualLine)
+        {
+            switch (expectedType)
+            {
+                case Utilities.LineType.AccountFunds:
+                    if (actualLine.Length != 2)
+                    {
+                        return false;
+                    }
+                    if (ValidDataType(Utilities.DataType.FinancialAmount, actualLine[0]) == false || ValidDataType(Utilities.DataType.FinancialAmount, actualLine[1]) == false)
+                    {
+                        return false;
+                    }
+                    return true;
+                case Utilities.LineType.AccountInfo:
+                    if (actualLine.Length != 3)
+                    {
+                        return false;
+                    }
+                    if (ValidDataType(Utilities.DataType.AccountNumber, actualLine[0]) == false || ValidDataType(Utilities.DataType.Pin, actualLine[1]) == false || ValidDataType(Utilities.DataType.Pin, actualLine[2]) == false)
+                    {
+                        return false;
+                    }
+                    return true;
+                case Utilities.LineType.AtmFunds:
+                    if (actualLine.Length != 1)
+                    {
+                        return false;
+                    }
+                    if (ValidDataType(Utilities.DataType.FinancialAmount, actualLine[0]) == false)
+                    {
+                        return false;
+                    }
+                    return true;
+                case Utilities.LineType.Blank:
+                    if (actualLine.Length != 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                case Utilities.LineType.UserOperation:
+                    if (actualLine.Length != 2)
+                    {
+                        return false;
+                    }
+                    if (ValidDataType(Utilities.DataType.Operation, actualLine[0]) == false || ValidDataType(Utilities.DataType.FinancialAmount, actualLine[1]) == false)
+                    {
+                        return false;
+                    }
+                    return true;
+            }
+            return false;
+        }
+        public static bool ValidDataType(Utilities.DataType expectedData, string actualData)
+        {
+            try
+            {
+                switch (expectedData)
+                {
+                    case Utilities.DataType.AccountNumber:
+                        int.Parse(actualData);
+                        return true;
+                    case Utilities.DataType.FinancialAmount:
+                        decimal.Parse(actualData, NumberStyles.AllowDecimalPoint | NumberStyles.Number);
+                        return true;
+                    case Utilities.DataType.Pin:
+                        if(actualData.Length != 4)
+                        {
+                            return false;
+                        }
+                        int.Parse(actualData);
+                        return true;
+                    case Utilities.DataType.Operation:
+                        if(actualData != "W" && actualData != "B")
+                        {
+                            return false;
+                        }
+                        return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return false;
+        }
     }
 }

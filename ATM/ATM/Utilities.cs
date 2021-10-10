@@ -12,5 +12,20 @@ namespace ATM
         {
             return inputInformationRow.Split(" ");
         }
+        public enum LineType
+        {
+            AccountFunds,
+            AccountInfo,
+            AtmFunds,
+            Blank,
+            UserOperation
+        }
+        public enum DataType
+        {
+            AccountNumber,
+            FinancialAmount,
+            Operation,
+            Pin,
+        }
     }
 }
