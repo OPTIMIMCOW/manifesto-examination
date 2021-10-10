@@ -29,7 +29,7 @@ namespace UnitTest
             Account account = new Account { Balance = 1000, Number = 12345678, Overdraft = 0, Pin = 1111 };
 
             //Act
-            Program.HandleAccountOperations(atm, account);
+            atm.HandleAccountOperations(account);
 
             //Asertion
             atm.Funds.Should().Be(1000); 
@@ -45,7 +45,7 @@ namespace UnitTest
             Account account = new Account { Balance = 1000, Number = 12345678, Overdraft = 0, Pin = 1111 };
 
             //Act
-            Program.HandleAccountOperations(atm, account);
+            atm.HandleAccountOperations(account);
 
             //Asertion
             atm.Funds.Should().Be(10000);
@@ -61,7 +61,7 @@ namespace UnitTest
             Account account = new Account { Balance = 50000, Number = 12345678, Overdraft = 0, Pin = 1111 };
 
             //Act
-            Program.HandleAccountOperations(atm, account);
+            atm.HandleAccountOperations(account);
 
             //Asertion
             atm.Funds.Should().Be(10000 - 1000);
