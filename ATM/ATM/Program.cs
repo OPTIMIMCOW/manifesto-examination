@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ATM
 {
@@ -10,31 +9,21 @@ namespace ATM
     {
         public static void Main(string[] args)
         {
-            try
+            var jsonFileLocation = @"..\..\..\TestFile.json";
+            var inputInformation = DeserialiseJson(jsonFileLocation);
+            if (inputInformation == null)
             {
-                var jsonFileLocation = @"..\..\..\TestFile.json";
-                var inputInformation = DeserialiseJson(jsonFileLocation);
-
-                Atm atm = new Atm { RowNumber = 0, InputData = inputInformation, Funds = int.Parse(inputInformation[0]) };
-                atm.RowNumber++;
-                if (atm.InputData[atm.RowNumber] != "")
-                {
-                    throw new Exception($"Input Data Failure. Row{atm.RowNumber} was expexted to be empty but was {inputInformation[atm.RowNumber]}");
-                }
-                atm.RowNumber++;
-
-                while (atm.RowNumber != atm.InputData.Count)
-                {
-                    UserInteraction(atm);
-                    atm.RowNumber++;
-                }
+                return;
             }
-            catch (Exception e)
+
+            Atm atm = null;
+            InitialiseAtm(ref atm, inputInformation);
+
+            while (atm.RowNumber != atm.InputData.Count)
             {
-                // TODO add something for the logger or similar. 
+                UserInteraction(atm);
             }
         }
-
         public static List<string> DeserialiseJson(String path)
         {
             try
@@ -44,8 +33,15 @@ namespace ATM
             }
             catch (Exception e)
             {
-                throw new Exception($"Failed to deserialise JSON, error:{e}");
+                // for logger $"Failed to deserialise JSON, Exception:{e}. Program Terminated";
+                return null;
             }
+        }
+        public static void InitialiseAtm(ref Atm atm, List<string> inputInformation)
+        {
+            atm = new Atm { RowNumber = 0, InputData = inputInformation, Funds = int.Parse(inputInformation[0]) };
+            atm.RowNumber++;
+            atm.RowNumber++;
         }
         public static void UserInteraction(Atm atm)
         {
@@ -62,7 +58,16 @@ namespace ATM
         }
         public static bool PinValid(Account account, string inputPin)
         {
-            if (account.Pin != int.Parse(inputPin))
+            int userInputPin = -1;
+            try
+            {
+                userInputPin = int.Parse(inputPin);
+            }
+            catch (Exception e)
+            {
+                // for logger $"Failed to convert user pin to int for validation: Exception: {e}.;
+            }
+            if (account.Pin != userInputPin)
             {
                 return false;
             }
@@ -76,6 +81,7 @@ namespace ATM
                 switch (rowInformationSplit[0])
                 {
                     case "":
+                        atm.RowNumber++;
                         return;
                     case "B":
                         Console.WriteLine(account.Balance);
@@ -96,7 +102,8 @@ namespace ATM
                 }
             }
         }
-        public static void SetAccountBalanceAndOverdraft(Atm atm, Account account) {
+        public static void SetAccountBalanceAndOverdraft(Atm atm, Account account)
+        {
             var rowInformationSplit = SplitRowInformation(atm.InputData[atm.RowNumber]);
             account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
             atm.RowNumber++;
