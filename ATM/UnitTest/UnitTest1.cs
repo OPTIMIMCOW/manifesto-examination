@@ -68,19 +68,5 @@ namespace UnitTest
             atm.Funds.Should().Be(10000 - 1000);
             account.Balance.Should().Be(50000 - 1000);
         }
-
-        [Fact]
-        public void TestUserInteraction_WithInvalidData_LineInInputShouldNotBeIncremented()
-        {
-            //Arrange
-            var inputData = new List<string>() { "10000", "", "12345678 1111", "10000 0", "W 1000", "W 9100" };
-            Atm atm = new Atm { Funds = 10000, RowNumber = 2, InputData = inputData };
-
-            //Act
-            Program.UserInteraction(atm);
-
-            //Asertion
-            atm.RowNumber.Should().Be(2);
-        }
     }
 }
