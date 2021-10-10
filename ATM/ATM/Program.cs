@@ -89,7 +89,7 @@ namespace ATM
                         atm.RowNumber++;
                         break;
                     case "W":
-                        var withdrawalAmount = int.Parse(rowInformationSplit[1]);
+                        var withdrawalAmount = decimal.Parse(rowInformationSplit[1]);
                         if (ValidTransaction(account, atm, withdrawalAmount))
                         {
                             account.Balance = account.Balance - withdrawalAmount;
@@ -109,9 +109,9 @@ namespace ATM
             account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
             atm.RowNumber++;
         }
-        public static bool ValidTransaction(Account account, Atm atm, int withdrawalAmount)
+        public static bool ValidTransaction(Account account, Atm atm, decimal withdrawalAmount)
         {
-            var accoutBalWithOverdraft = (Int64)account.Balance + (int)account.Overdraft;
+            var accoutBalWithOverdraft = account.Balance + account.Overdraft;
             if (accoutBalWithOverdraft < withdrawalAmount)
             {
                 Console.WriteLine("FUNDS_ERR");

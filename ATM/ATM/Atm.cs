@@ -10,6 +10,6 @@ namespace ATM
     {
         public decimal Funds { get; set; }
         public List<string> InputData { get; set; }
-        public Int32 RowNumber = 0;
+        public int RowNumber = 0;
     }
 }
