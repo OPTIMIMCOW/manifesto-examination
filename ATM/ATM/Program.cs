@@ -9,19 +9,19 @@ namespace ATM
     {
         public static void Main(string[] args)
         {
-            var jsonFileLocation = @"..\..\..\TestFile.json";
-            var inputInformation = DeserialiseJson(jsonFileLocation);
-
-            Atm atm = null;
-            InitialiseAtm(ref atm, inputInformation);
-
             try
             {
+                var jsonFileLocation = @"..\..\..\TestFile.json";
+                var inputInformation = DeserialiseJson(jsonFileLocation);
+
+                Atm atm = null;
+                InitialiseAtm(ref atm, inputInformation);
+
                 atm.ProcessInputData();
             }
             catch (Exception e)
             {
-                throw new Exception($"Exception: {e}");
+                Console.WriteLine($" An Exception was thrown: {e}");
             }
         }
         public static List<string> DeserialiseJson(String path)
