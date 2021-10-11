@@ -11,14 +11,14 @@ namespace UnitTest
         [Fact]
         public void TestCreateAtm_WithValidData_AtmPropertiesShouldAllBeInitialised()
         {
-            ////Arrange
+            //Arrange
+            var inputData = new List<string>() { "1000", "", "12345678 1111 1111", "10000 0", "W 1100" };
 
-            ////Act
-            //var result = Program.DeserialiseJson(@"..\..\..\..\ATM\TestFile.json");
+            //Act
+            Atm atm = new Atm(inputData);
 
-            ////Asertion
-            //result.Should().HaveCount(15);
+            //Asertion
+            atm.RowNumber.Should().Be(0);
         }
-
     }
 }
