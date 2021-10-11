@@ -142,7 +142,10 @@ namespace ATM
                         {
                             return false;
                         }
-                        int.Parse(actualData);
+                        if (int.Parse(actualData) < 0)
+                        {
+                            return false;
+                        }
                         return true;
                     case Utilities.DataType.Operation:
                         if (actualData != "W" && actualData != "B")
