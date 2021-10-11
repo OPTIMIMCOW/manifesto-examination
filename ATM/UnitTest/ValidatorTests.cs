@@ -76,16 +76,16 @@ namespace UnitTest
             var validUserOperation2 = new string[] { "B" };
 
             //Act
-            var result1 = Validator.ValidLine(Utilities.LineType.AccountFunds, validAccountFunds1);
-            var result2 = Validator.ValidLine(Utilities.LineType.AccountFunds, validAccountFunds2);
-            var result3 = Validator.ValidLine(Utilities.LineType.AccountFunds, validAccountFunds3);
-            var result4 = Validator.ValidLine(Utilities.LineType.AtmFunds, validAtmFunds1);
-            var result5 = Validator.ValidLine(Utilities.LineType.AtmFunds, validAtmFunds2);
-            var result6 = Validator.ValidLine(Utilities.LineType.AtmFunds, validAtmFunds3);
-            var result7 = Validator.ValidLine(Utilities.LineType.Blank, validBlank1);
-            var result8 = Validator.ValidLine(Utilities.LineType.AccountInfo, validAccountInfo1);
-            var result9 = Validator.ValidLine(Utilities.LineType.UserOperation, validUserOperation1);
-            var result10 = Validator.ValidLine(Utilities.LineType.UserOperation, validUserOperation2);
+            var result1 = Validator.ValidLineType(Utilities.LineType.AccountFunds, validAccountFunds1);
+            var result2 = Validator.ValidLineType(Utilities.LineType.AccountFunds, validAccountFunds2);
+            var result3 = Validator.ValidLineType(Utilities.LineType.AccountFunds, validAccountFunds3);
+            var result4 = Validator.ValidLineType(Utilities.LineType.AtmFunds, validAtmFunds1);
+            var result5 = Validator.ValidLineType(Utilities.LineType.AtmFunds, validAtmFunds2);
+            var result6 = Validator.ValidLineType(Utilities.LineType.AtmFunds, validAtmFunds3);
+            var result7 = Validator.ValidLineType(Utilities.LineType.Blank, validBlank1);
+            var result8 = Validator.ValidLineType(Utilities.LineType.AccountInfo, validAccountInfo1);
+            var result9 = Validator.ValidLineType(Utilities.LineType.UserOperation, validUserOperation1);
+            var result10 = Validator.ValidLineType(Utilities.LineType.UserOperation, validUserOperation2);
 
             //Asertion
             result1.Should().Be(true);
@@ -118,18 +118,18 @@ namespace UnitTest
 
 
             //Act
-            var result1 = Validator.ValidLine(Utilities.LineType.AccountFunds, inValidAccountFunds1);
-            var result2 = Validator.ValidLine(Utilities.LineType.AccountFunds, inValidAccountFunds2);
-            var result3 = Validator.ValidLine(Utilities.LineType.AccountFunds, inValidAccountFunds3);
-            var result4 = Validator.ValidLine(Utilities.LineType.AtmFunds, inValidAtmFunds1);
-            var result5 = Validator.ValidLine(Utilities.LineType.AtmFunds, inValidAtmFunds2);
-            var result6 = Validator.ValidLine(Utilities.LineType.AtmFunds, inValidAtmFunds3);
-            var result7 = Validator.ValidLine(Utilities.LineType.Blank, inValidBlank1);
-            var result8 = Validator.ValidLine(Utilities.LineType.AccountInfo, inValidAccountInfo1);
-            var result9 = Validator.ValidLine(Utilities.LineType.UserOperation, inValidUserOperation1);
-            var result10 = Validator.ValidLine(Utilities.LineType.UserOperation, inValidUserOperation2);
-            var result11 = Validator.ValidLine(Utilities.LineType.Blank, inValidBlank2);
-            var result12 = Validator.ValidLine(Utilities.LineType.AccountInfo, inValidAccountInfo2);
+            var result1 = Validator.ValidLineType(Utilities.LineType.AccountFunds, inValidAccountFunds1);
+            var result2 = Validator.ValidLineType(Utilities.LineType.AccountFunds, inValidAccountFunds2);
+            var result3 = Validator.ValidLineType(Utilities.LineType.AccountFunds, inValidAccountFunds3);
+            var result4 = Validator.ValidLineType(Utilities.LineType.AtmFunds, inValidAtmFunds1);
+            var result5 = Validator.ValidLineType(Utilities.LineType.AtmFunds, inValidAtmFunds2);
+            var result6 = Validator.ValidLineType(Utilities.LineType.AtmFunds, inValidAtmFunds3);
+            var result7 = Validator.ValidLineType(Utilities.LineType.Blank, inValidBlank1);
+            var result8 = Validator.ValidLineType(Utilities.LineType.AccountInfo, inValidAccountInfo1);
+            var result9 = Validator.ValidLineType(Utilities.LineType.UserOperation, inValidUserOperation1);
+            var result10 = Validator.ValidLineType(Utilities.LineType.UserOperation, inValidUserOperation2);
+            var result11 = Validator.ValidLineType(Utilities.LineType.Blank, inValidBlank2);
+            var result12 = Validator.ValidLineType(Utilities.LineType.AccountInfo, inValidAccountInfo2);
 
 
 

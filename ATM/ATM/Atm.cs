@@ -32,7 +32,7 @@ namespace ATM
         public void UserInteraction()
         {
             var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
-            // validate line // if invalid then throw error
+            Validator.ValidateLine(Utilities.LineType.AccountInfo, rowInformationSplit, this.RowNumber);
             var account = new Account { Number = int.Parse(rowInformationSplit[0]), Pin = int.Parse(rowInformationSplit[1]) };
             if (Validator.PinValid(account, rowInformationSplit[2]) == false)
             {
@@ -49,6 +49,7 @@ namespace ATM
             while (this.RowNumber < this.InputData.Count)
             {
                 var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
+                Validator.ValidateLine(Utilities.LineType.UserOperation, rowInformationSplit, this.RowNumber);
                 switch (rowInformationSplit[0])
                 {
                     case "":
@@ -76,6 +77,7 @@ namespace ATM
         public void SetAccountBalanceAndOverdraft(Account account)
         {
             var rowInformationSplit = Utilities.SplitRowInformation(this.InputData[this.RowNumber]);
+            Validator.ValidateLine(Utilities.LineType.AccountFunds, rowInformationSplit, this.RowNumber);
             account.SetBalanceAndOverDraft(int.Parse(rowInformationSplit[0]), int.Parse(rowInformationSplit[1]));
             this.RowNumber++;
         }

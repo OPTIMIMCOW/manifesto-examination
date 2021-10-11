@@ -11,17 +11,9 @@ namespace ATM
         {
             var jsonFileLocation = @"..\..\..\TestFile.json";
             var inputInformation = DeserialiseJson(jsonFileLocation);
-            if (inputInformation == null)
-            {
-                return;
-            }
 
             Atm atm = null;
             InitialiseAtm(ref atm, inputInformation);
-            if (atm == null)
-            {
-                return;
-            }
 
             try
             {
@@ -41,15 +33,17 @@ namespace ATM
             }
             catch (Exception e)
             {
-                // for logger $"Failed to deserialise JSON, Exception:{e}. Program Terminated";
-                return null;
+                throw new Exception($"Failed to deserialise JSON, Exception:{e}. Processing Terminated");
             }
         }
         public static void InitialiseAtm(ref Atm atm, List<string> inputInformation)
-        {// validate line before use here
-            // return if line not valid
+        {
+            Validator.ValidateLine(Utilities.LineType.AtmFunds, atm, inputInformation);
             atm = new Atm(inputInformation);
             atm.RowNumber++;
+
+            var rowInformationSplit = Utilities.SplitRowInformation(atm.InputData[atm.RowNumber]);
+            Validator.ValidateLine(Utilities.LineType.Blank, rowInformationSplit, atm.RowNumber);
             atm.RowNumber++;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ATM
@@ -37,7 +38,22 @@ namespace ATM
             }
             return true;
         }
-        public static bool ValidLine(Utilities.LineType expectedType, string[] actualLine)
+        public static void ValidateLine(Utilities.LineType expectedType, Atm atm, List<string> inputInformation)
+        {
+            var rowInformationSplit = Utilities.SplitRowInformation(inputInformation[0]);
+            if (ValidLineType(expectedType, rowInformationSplit) == false)
+            {
+                throw new Exception($"Line {0} was invalid. Processing Terminated");
+            }
+        }
+        public static void ValidateLine(Utilities.LineType expectedType, string[] rowInformationSplit, int rowNumber)
+        {
+            if (ValidLineType(expectedType, rowInformationSplit) == false)
+            {
+                throw new Exception($"Line {rowNumber} was invalid. Processing Terminated");
+            }
+        }
+        public static bool ValidLineType(Utilities.LineType expectedType, string[] actualLine)
         {
             switch (expectedType)
             {
@@ -92,6 +108,10 @@ namespace ATM
                     }
                     if (actualLine.Length == 1)
                     {
+                        if (actualLine[0] == "")
+                        {
+                            return true;
+                        }
                         if (ValidDataType(Utilities.DataType.Operation, actualLine[0]) == false)
                         {
                             return false;

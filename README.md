@@ -6,7 +6,7 @@
 - Tested on Google Chrome 1920x1080 screen @ 100% 
 
 # ATM 
-- Time taken: approx 8hrs.
+- Time taken: approx 12hrs.
 - Instructions: 
 - Assumptions/ Approach: 
 1) Data input is all rows of data ie not line by line interaction with client side so chose a json input as deserialise to an array is simple.
