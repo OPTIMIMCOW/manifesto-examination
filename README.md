@@ -6,7 +6,7 @@
 - Tested on Google Chrome 1920x1080 screen @ 100% 
 
 # ATM 
-- Time taken: approx 12hrs.
+- Time taken: approx 14hrs.
 - Instructions: 
 1) Clone repo to directory.
 2) Open ATM.sln project file located here "\manifesto-examination\ATM\ATM\ATM.sln" from your ide. 
